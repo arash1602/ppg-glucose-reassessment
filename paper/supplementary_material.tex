@@ -81,7 +81,7 @@ Age, sex, BMI (ridge) & Person & -- & 35.0 & 0.041 & -- & -- & 54.4 \\
 
 \begin{table}[H]
 \centering\small
-\caption{PPG computed from the centered window or only from signal before the draw (person-level 5-fold). PPG gain: paired change in RMSE against the same model without PPG. The centered-window rows are the models of Tables~6 and 8.}
+\caption{PPG computed from the centered window or only from signal before the draw (person-level 5-fold). PPG gain: paired change in RMSE against the same model without PPG, $\Delta\mathrm{RMSE}=\mathrm{RMSE}_{\mathrm{with\ PPG}}-\mathrm{RMSE}_{\mathrm{without\ PPG}}$; a negative value means that PPG improves accuracy. The centered-window rows are the models of Tables~6 and 8.}
 \label{tab:causal}
 \begin{tabular}{@{}llccc@{}}
 \toprule
@@ -105,7 +105,7 @@ One calibration value & none (calibration + clinical + time) & 32.97 & 0.228 & -
 \begin{figure}[H]
 \centering
 \includegraphics[width=\linewidth]{figs/fig_ba.pdf}
-\caption{Bland--Altman plots, one point per reading: (a) ResNet34-1D with a person-level split, (b) clinical context, time since anesthesia and PPG features, (c) the calibrated model with all signals. Solid line: mean difference (bias); dashed lines: 95\% limits of agreement. The slope of the difference against the laboratory value measures regression toward the mean ($-1$ for a constant estimate, 0 for no proportional error).}
+\caption{Bland--Altman plots, one point per reading: (a) ResNet34-1D with a person-level split, (b) clinical context, time since anesthesia and PPG features, (c) the calibrated model with all signals. Solid line: mean difference (bias); dashed lines: 95\% limits of agreement. The annotated slopes were obtained by regressing the difference (estimate $-$ laboratory) on the laboratory reference value, not on the mean shown on the horizontal axis; they measure regression toward the mean ($-1$ for a constant estimate, 0 for no proportional error).}
 \label{fig:ba}
 \end{figure}
 
@@ -129,14 +129,14 @@ Above 180~\mgdl{} & 461 / 375 & 100.2 & $-$93 & 98.2 & $-$91 & 86.4 & $-$74 & 63
 \bottomrule
 \end{tabular}
 \begin{tablenotes}\footnotesize
-\item[a] Readings without / with calibration (the calibrated model scores only readings after a patient's first). Diabetes: pre-operative diabetes in the VitalDB case table (363 patients).
+\item[a] Readings without / with calibration (the calibrated model scores only readings after a patient's first). Diabetes: pre-operative diabetes in the VitalDB case table (363 patients). Below 70~\mgdl{}: 102 readings from 75 patients without calibration.
 \end{tablenotes}
 \end{threeparttable}
 \end{table}
 
 \begin{table}[H]
 \centering\footnotesize\setlength{\tabcolsep}{3.5pt}
-\caption{MUST, matched comparison on the 48 recordings (22 people) usable by every model; all models trained on VitalDB.}
+\caption{MUST, matched comparison on the 48 recordings (22 people) usable by every model; all models trained on VitalDB. $\Delta\mathrm{RMSE}=\mathrm{RMSE}_{\mathrm{model}}-\mathrm{RMSE}_{\mathrm{constant}}$; a positive value means the model is less accurate than the constant prediction.}
 \label{tab:must_matched}
 \begin{tabular}{@{}lcccc@{}}
 \toprule
@@ -167,15 +167,15 @@ Configuration & \makecell{Main model\\(Table~12)} & \makecell{Continuous\\model}
 Single wavelength, best channel & 71 & 73 & 89 & 68 \\
 Oximeter wavelengths, 660 / 940~nm & 82 / 84 & 87 / 91 & 102 / 129 & 136 / 114 \\
 Glucose absorption only, best channel & 790 & 790 & 750 & 625 \\
-Pulsatile channel below 1000~nm & no signal & no signal\tnote{a} & no signal & no signal \\
+Pulsatile channel below 1000~nm & no signal\tnote{a} & no usable signal\tnote{b} & no signal\tnote{a} & no signal\tnote{a} \\
 Two wavelengths & none & none & none & none \\
 Three wavelengths & none & none & $>$1000 & $>$400 \\
-Four / five / six wavelengths\tnote{b} & 11 / 11 / 11 & 15 / 13 / 13 & 20 / 19 / 18 & 18 / 17 / 16 \\
+Four / five / six wavelengths\tnote{c} & 11 / 11 / 11 & 15 / 13 / 13 & 20 / 19 / 18 & 18 / 17 / 16 \\
 All wavelengths (idealized bound) & 4.0 & 5.1 & 5.6 & 4.8 \\
 \bottomrule
 \end{tabular}
 \begin{tablenotes}\footnotesize
-\item none: glucose cannot be separated from the confounders. \item[a] Above $10^5$~\mgdl{} with the small glucose absorption below 1000~nm of Haque et al.~\cite{haque2021}. \item[b] Best sets of wavelengths at least 30~nm apart; Monte Carlo 95\% intervals within $\pm$1~\mgdl{}.
+\item none: glucose cannot be separated from the confounders. \item[a] Glucose absorption is set to zero below 1000~nm in this configuration, so the pulsatile channel carries no glucose signal there by construction. \item[b] Zero by construction without glucose absorption below 1000~nm; with the weak absorption of Haque et al.~\cite{haque2021} the glucose-equivalent error is about $4.9\times10^5$~\mgdl{} (the signal is not strictly zero, but far too weak to use). The other rows are identical with and without this absorption to the precision shown. \item[c] Best sets of wavelengths at least 30~nm apart; Monte Carlo 95\% intervals within $\pm$1~\mgdl{}.
 \end{tablenotes}
 \end{threeparttable}
 \end{table}
