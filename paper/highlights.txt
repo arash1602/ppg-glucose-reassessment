@@ -1,0 +1,7 @@
+Highlights
+
+- Person-wise splits cut ResNet34-1D glucose R² from 0.23 to 0.04 (2,991 patients)
+- PPG adds 1.1 mg/dL over clinical context, shared with ECG and arterial pressure
+- One reference value gives RMSE 30.8 mg/dL but detects at most 3.4% of hypoglycaemia
+- Skin model: one wavelength leaves at least 71 mg/dL glucose-equivalent error
+- Wearable-input model runs on an ESP32-S3 in 0.3 s per minute, bit-identical to Python

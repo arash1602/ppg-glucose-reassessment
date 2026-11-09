@@ -1,0 +1,4 @@
+model,n,people,rmse,rmse_ci,mae,mard,r2,clarke_A,within_person_r,delta_rmse_vs_previous
+persistence,4034,2043,38.46,33.8-45.4,25.58,18.58,-0.082,63.3,,
+fingerstick + time + profile,4034,2043,32.31,28.6-37.5,21.79,17.45,0.236,68.7,0.181,"-6.15 [-7.93, -4.38]"
++ PPG (60 s) and its change,4034,2043,31.84,27.6-37.8,20.98,16.74,0.258,71.0,0.116,"-0.47 [-1.54, +0.69]"

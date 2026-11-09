@@ -1,0 +1,36 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.ipynb_checkpoints/
+
+# Outputs of a local run (data are downloaded by the pipeline and are never stored here)
+/results/
+/results_quicktest/
+*.npz
+*.npy
+*.pt
+*.pkl
+fm_weights/
+
+# Simulation raw outputs (large); the analysed tables under results*/physio_analysis are kept
+simulation/**/raw/
+simulation/**/*.mch
+simulation/**/*.jdat
+
+# LaTeX build files
+*.aux
+*.log
+*.out
+*.bbl
+*.blg
+*.synctex.gz
+
+# PlatformIO / editors / OS
+.pio/
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

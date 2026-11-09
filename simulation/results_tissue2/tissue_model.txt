@@ -1,0 +1,18 @@
+Alternative (continuous) tissue model, 600-1700 nm, for the tissue-model sensitivity analysis.
+
+Based on M. Chhetri's updated three-layer model (Glucose_Sensor_Ranking, Nov 2026), with corrections:
+  * absorption of every layer from composition over the whole range (no change of data source at 1000 nm):
+      mu_a = B*S*mu_a,HbO2 + B*(1-S)*mu_a,Hb + W*mu_a,water + F*mu_a,fat + M*mu_a,mel + R*baseline
+    blood: Bosschaart et al. 2014; water: Segelstein 1981 (public); fat: van Veen 2004 / Anderson 2006;
+    melanosome: Jacques; baselines as in Jacques 2013 / Saidi 1992 (subcutaneous: none).
+    Compositions: epidermis (Jacques), dermis (Jacques), subcutaneous fat (Ganesan et al. 2016).
+  * reduced scattering of every layer from Salomatina et al. 2006 (measured, 600-1330 nm). Between 1330
+    and 1700 nm the measured curves show a peak at the 1450 nm water band, a known absorption-scattering
+    cross-talk artefact of such inversions, and the data end near 1600 nm; there a power law
+    a*(lambda/500 nm)^-b fitted to the same layer's 600-1330 nm data is used, scaled to join at 1330 nm.
+  * anisotropy g = 0.62 + 0.29e-3*lambda (van Gemert 1989) up to 1000 nm and held at its 1000-nm value
+    (0.91) above, so that mu_s = mu_s'/(1-g) is continuous (the original model switched from 0.91 to 0.90).
+  * refractive index n = (1-W)*1.5 + W*1.33 (Jacques 2013).
+Geometry (layer thicknesses, glass window, detector rings) is unchanged and comes from tissue_model.tissue_params.
+
+scattering power-law fits: {'epi': {'a_mm-1': 5.484478699995321, 'b': 0.884523255532818, 'raw_vs_fit_1450_%': 35.85829165764829}, 'derm': {'a_mm-1': 3.4086723856970385, 'b': 0.8385346124753836, 'raw_vs_fit_1450_%': 43.34559838529621}, 'sub': {'a_mm-1': 2.814823889033524, 'b': 0.6537469164089054, 'raw_vs_fit_1450_%': 21.563533145149005}}

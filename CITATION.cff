@@ -1,0 +1,29 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+title: "Reassessing photoplethysmography-based blood glucose estimation: code and reproduction package"
+version: 1.0.0
+date-released: 2026-11-08
+license: MIT
+repository-code: "https://github.com/arash1602/ppg-glucose-reassessment"
+authors:
+  - family-names: Ghamari
+    given-names: Mohammad
+    affiliation: "California Polytechnic State University, San Luis Obispo"
+  - family-names: Chhetri
+    given-names: Milan
+    affiliation: "California Polytechnic State University, San Luis Obispo"
+  - family-names: Kundu
+    given-names: Souvik
+    affiliation: "California Polytechnic State University, San Luis Obispo"
+  - family-names: Alipour
+    given-names: Khalil
+    affiliation: "University of Tehran"
+  - family-names: Tarvirdizadeh
+    given-names: Bahram
+    affiliation: "University of Tehran"
+keywords:
+  - photoplethysmography
+  - non-invasive glucose monitoring
+  - subject-wise validation
+  - Monte Carlo simulation
+  - embedded machine learning

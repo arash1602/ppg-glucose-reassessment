@@ -1,0 +1,15 @@
+# Versions used for the feature-model tables (Tables 7-17). PyTorch: install separately with CUDA
+# (see README); any 2.x CUDA build works.
+numpy==2.2.6
+scipy==1.15.3
+pandas==2.3.3
+scikit-learn==1.7.2
+matplotlib>=3.8
+tabulate>=0.9
+vitaldb>=1.4
+# simulation
+pmcx
+pyyaml
+# firmware tools
+pyserial
+platformio
