@@ -384,10 +384,11 @@ def fig_signal():
     a.plot(t, seg, color=C["blue"], lw=1.2, label="band-passed, robust z")
     pk = allp[(allp >= t0) & (allp < t0 + n)] - t0
     acc = set((peaks[(peaks >= t0) & (peaks < t0 + n)] - t0).tolist())
-    a.scatter(pk / 100, seg[pk], s=16, zorder=3, color=[C["aqua"] if p in acc else C["red"] for p in pk],
-              edgecolor="white", lw=0.5)
-    a.scatter([], [], s=16, color=C["aqua"], label="peak of accepted 1-s beat")
-    a.scatter([], [], s=16, color=C["red"], label="peak, beat rejected (template)")
+    ok = np.array([p in acc for p in pk], bool)
+    a.scatter(pk[ok] / 100, seg[pk[ok]], s=16, zorder=3, marker="o", color=C["aqua"], edgecolor="white", lw=0.5,
+              label="peak of accepted 1-s beat")
+    a.scatter(pk[~ok] / 100, seg[pk[~ok]], s=30, zorder=3, marker="X", color=C["red"], edgecolor="white", lw=0.5,
+              label="peak, beat rejected (template)")
     a.set_xlabel("Time (s)"); a.set_yticks([]); a.set_xlim(0, 10); a.set_ylim(-3.2, 7.4)
     a.legend(loc="upper right", ncol=2, fontsize=6.2); a.set_title("10 s of VitalDB case 1 (glucose 154 mg/dL)"); tag(a, "a")
     tb = np.arange(100) / 100 - 0.5

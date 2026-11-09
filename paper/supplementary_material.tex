@@ -28,7 +28,7 @@ Mohammad Ghamari, Milan Chhetri, Souvik Kundu, Khalil Alipour, and Bahram Tarvir
 \begin{figure}[H]
 \centering
 \includegraphics[width=\linewidth]{figs/fig_signal.pdf}
-\caption{Preprocessing on real data: the 16-min finger PPG window around the first glucose draw of VitalDB case 1 (154~\mgdl{}), decimated to 100~Hz. (a) Ten seconds of this window (samples 9,500 to 10,500): the PPG and the band-passed, robust z-scored signal with the detected peaks. Green peaks are the centers of accepted 1-s beats; the two red peaks were rejected by the template check (cosine similarity to the mean beat below 0.85). Over the whole window 1,352 peaks were detected and 1,235 beats accepted (91\%). (b) Sixty accepted beats drawn at random from the window, each scaled to $[-1,1]$, and the median of all 1,235.}
+\caption{Preprocessing on real data: the 16-min finger PPG window around the first glucose draw of VitalDB case 1 (154~\mgdl{}), decimated to 100~Hz. (a) Ten seconds of this window (samples 9,500 to 10,500): the PPG and the band-passed, robust z-scored signal with the detected peaks; the two traces are scaled separately and offset vertically for display. Green circles mark the centers of accepted 1-s beats; the two red crosses mark peaks rejected by the template check (cosine similarity to the mean beat below 0.85). Over the whole window 1,352 peaks were detected and 1,235 beats accepted (91\%). (b) Sixty accepted beats drawn at random from the window, each scaled to $[-1,1]$, and the median of all 1,235.}
 \label{fig:signal}
 \end{figure}
 
@@ -40,7 +40,7 @@ Mohammad Ghamari, Milan Chhetri, Souvik Kundu, Khalil Alipour, and Bahram Tarvir
 \toprule
 Parameter & Value and basis & Source \\
 \midrule
-Glucose scattering coefficient & $\partial\mu_s/\mu_s=-0.29\%$ per mmol/L ($\partial\mu_s/\partial C_g\approx-0.041$~mm$^{-1}$ per mmol/L), measured in 25 oral glucose tolerance tests at 1314~nm and extended over 1000 to 1700~nm with Mie theory & Ge et al.~\cite{ge2024} \\
+Glucose scattering coefficient & $(1/\mu_s)\,\partial\mu_s/\partial C_g=-0.29\%\,(\mathrm{mmol/L})^{-1}$ ($\partial\mu_s/\partial C_g\approx-0.041$~mm$^{-1}$ per mmol/L), measured in 25 oral glucose tolerance tests at 1314~nm and extended over 1000 to 1700~nm with Mie theory & Ge et al.~\cite{ge2024} \\
 Independent estimate & $-0.22\%$ per mmol/L near 1300~nm (optical coherence tomography in animals), as cited by Ge et al. & Larin et al.~\cite{larin2003} \\
 Geometry & Three layers (0.1 / 1.0 / 10~mm), 0.2~mm glass window, detector rings at 1.7 to 2.9~mm; our model reproduces this geometry & Ge et al.~\cite{ge2024} \\
 Glucose absorption, 1000 to 1700~nm & $\partial\mu_a/\partial C_g$ spectrum used by Ge et al. & Ge et al.~\cite{ge2024}; Amerov et al.~\cite{amerov2004} \\
@@ -175,7 +175,7 @@ All wavelengths (idealized bound) & 4.0 & 5.1 & 5.6 & 4.8 \\
 \bottomrule
 \end{tabular}
 \begin{tablenotes}\footnotesize
-\item none: glucose cannot be separated from the confounders. \item[a] Glucose absorption is set to zero below 1000~nm in this configuration, so the pulsatile channel carries no glucose signal there by construction. \item[b] Zero by construction without glucose absorption below 1000~nm; with the weak absorption of Haque et al.~\cite{haque2021} the glucose-equivalent error is about $4.9\times10^5$~\mgdl{} (the signal is not strictly zero, but far too weak to use). The other rows are identical with and without this absorption to the precision shown. \item[c] Best sets of wavelengths at least 30~nm apart; Monte Carlo 95\% intervals within $\pm$1~\mgdl{}.
+\item none: glucose cannot be separated from the confounders. Glucose also in fat: the dermal glucose sensitivities are applied to the subcutaneous fat as well, either scaled by the water fraction of fat relative to dermis (0.22/0.65 = 0.34, water-weighted) or unscaled (full strength); both variants add the confounders of the fat layer (its water, blood volume and scattering). \item[a] Glucose absorption is set to zero below 1000~nm in this configuration, so the pulsatile channel carries no glucose signal there by construction. \item[b] Zero by construction without glucose absorption below 1000~nm; with the weak absorption of Haque et al.~\cite{haque2021} the glucose-equivalent error is about $4.9\times10^5$~\mgdl{} (the signal is not strictly zero, but far too weak to use). The other rows are identical with and without this absorption to the precision shown. \item[c] Best sets of wavelengths at least 30~nm apart; Monte Carlo 95\% intervals within $\pm$1~\mgdl{}.
 \end{tablenotes}
 \end{threeparttable}
 \end{table}
@@ -183,7 +183,7 @@ All wavelengths (idealized bound) & 4.0 & 5.1 & 5.6 & 4.8 \\
 \begin{table}[H]
 \centering\small
 \begin{threeparttable}
-\caption{ESP32-S3 resources and timing for one 60-s window (240~MHz).}
+\caption{ESP32-S3 resources and timing for one 60-s window (240~MHz). The self-test times one stored window on the board at start-up; the hardware-in-the-loop value is the median over 30 different recordings streamed from the PC. Processing time depends on the number of beats in a window, so the two differ slightly.}
 \label{tab:esp}
 \begin{tabular}{@{}lrl@{}}
 \toprule
